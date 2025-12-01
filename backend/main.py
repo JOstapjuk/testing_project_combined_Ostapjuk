@@ -8,8 +8,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 RAKENDUSE_NIMI = "Kvaliteedijälg API"
-JSONPLACEHOLDER_URL = "https://jsonplaceholder.typicode.com/posts/1"
-RICK_MORTY_URL = "https://rickandmortyapi.com/api/character/1"
+JSONPLACEHOLDER_URL = "https://jsonplaceholder.typicode.com/posts/30"
+RICK_MORTY_URL = "https://rickandmortyapi.com/api/character/30"
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("kvaliteedijalg.backend")
