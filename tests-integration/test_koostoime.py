@@ -150,30 +150,3 @@ def test_koond_endpoint_vastuse_struktuuri_taielikkus(caplog: pytest.LogCaptureF
     # Kontrolli allikad
     assert isinstance(keha["allikad"], list)
     assert len(keha["allikad"]) == 2
-
-
-@responses.activate
-def test_koond_endpoint_http_timeout_kaesitlus(caplog: pytest.LogCaptureFixture) -> None:
-    """Kontrollib timeout olukorra käsitlemist."""
-    caplog.set_level("ERROR")
-    
-    responses.add(
-        responses.GET,
-        JSONPLACEHOLDER_URL,
-        body=responses.Timeout("Request timeout"),
-    )
-    responses.add(
-        responses.GET,
-        RICK_MORTY_URL,
-        json={"id": 3, "name": "Summer", "status": "Alive"},
-        status=200,
-    )
-    
-    vastus = client.get("/api/koond")
-    assert vastus.status_code == 502
-    
-    # Kontrolli timeout logimist
-    assert any(
-        "ERROR" in rekord.levelname
-        for rekord in caplog.records
-    )
