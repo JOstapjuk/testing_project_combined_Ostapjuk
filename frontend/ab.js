@@ -25,17 +25,22 @@ function salvestaVariant(variant, salvesti) {
 
 function valiVariant(soovitud, valikud = {}) {
   const { juhuarv = Math.random, eelmine = null, sessioonId = null } = valikud;
+  
   const kasulik = VARIANDID.includes(soovitud || "")
     ? soovitud
     : VARIANDID.includes(eelmine || "")
     ? eelmine
     : VARIANDID[Math.floor(juhuarv() * VARIANDID.length)];
 
+  // Save the selected variant to localStorage (or custom storage)
+  salvestaVariant(kasulik); 
+
   return {
     variant: kasulik,
     sessioonId: sessioonId || looSessioonId(),
   };
 }
+
 
 function looLayoutHTML(variant) {
   if (variant === "variant_b") {

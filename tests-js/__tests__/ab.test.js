@@ -7,6 +7,15 @@ const {
 } = require("../../frontend/ab.js");
 
 describe("A/B loogika", () => {
+
+  // Mock localStorage
+  beforeAll(() => {
+    global.localStorage = {
+      getItem: jest.fn(() => null),  // Simulate empty localStorage (returns null)
+      setItem: jest.fn(),  // Track calls to setItem
+    };
+  });
+
   test("valiVariant tagastab olemasoleva variandi", () => {
     const tulemus = valiVariant("variant_b", { sessioonId: "sess-1" });
     expect(tulemus.variant).toBe("variant_b");
@@ -35,4 +44,3 @@ describe("A/B loogika", () => {
     expect(keha.sessioonId).toBe("sess");
   });
 });
-

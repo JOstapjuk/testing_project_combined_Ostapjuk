@@ -14,19 +14,13 @@
 ### Testitud:
 - `/api/koond` JSON skeemi valideerimine
 - Veakäsitlus (timeout, HTTP vigad)
-- Ajatempli ISO 8601 formaat
 - Normaliseeritud väljade olemasolu
 - Mock API vastuste töötlemine
 
 ### Tulemused:
 - Kõik 5 testi möödusid
-- Katvus: 75% (backend/main.py)
 - Keskmine käivitusaeg: 2.3s
 
-**Failid:**
-- test-report.html
-- test-output.txt
-- coverage/
 
 ---
 
