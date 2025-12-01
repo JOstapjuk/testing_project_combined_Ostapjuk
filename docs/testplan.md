@@ -90,8 +90,8 @@ Brauseriühilduvus - Frontend töötab Chrome, Firefox, Safari viimastes versioo
 
 
 Aktsepteeritavuse kontroll-leht
- 1.Kõik 5+ pytest testi mööduvad
- 2.Kõik 4+ Jest testi mööduvad
+ 1.Kõik  pytest testi mööduvad
+ 2.Kõik  Jest testi mööduvad
  3.Integratsioonitestid kinnitavad API kliendi koostoimet
  4.Locust koormustest näitab vastuvõetavaid vastusaegu
  5.GA4 sündmused on dokumenteeritud docs/results/analytics/
@@ -266,22 +266,12 @@ Kokkuvõtlik dokument: docs/results/test-summary.md
 
 Edukriteeriumid
 
-Pytest: Kõik 5+ testi mööduvad, katvus ≥ 70%
-Jest: Kõik 4+ testi mööduvad, katvus ≥ 60%
+Pytest: Kõik  testi mööduvad, katvus ≥ 70%
+Jest: Kõik  testi mööduvad, katvus ≥ 60%
 Integratsioonitestid: FastAPI klient töötab mock-vastustega vigadeta
 Locust: 95% päringuid < 2s vastusajaga, 0% ebaõnnestumisi
 GA4: Mõlemad sündmused (variant_vaade, variant_vahetus) logitud
 CI/CD: GitHub Actions pipeline töötab rohelist märguannet
 Dokumentatsioon: Kõik tulemused arhiveeritud struktureeritud kujul
 
-Aruandluse sagedus
 
-Iga ülesande lõpus: Konkreetse ülesande tulemused dokumenteeritud
-Projekti lõpus: Koondraport docs/results/test-summary.md valmis
-CI/CD: Automaatsed raportid igal push'il GitHub'i
-
-Failide linkimine
-
-README.md sisaldab viiteid kõigile põhidokumentidele
-Testiplaan viitab tulemustele docs/results/
-CI artefaktid linkitud GitHub Actions tab'ilt
