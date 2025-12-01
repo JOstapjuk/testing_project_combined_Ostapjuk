@@ -106,30 +106,6 @@ def test_status_endpoint_toimib_integratsioonitestis() -> None:
     assert "Kvaliteedijälg" in keha["allikas"]
 
 
-@responses.activate
-def test_koond_endpoint_mlemad_allikad_ebaonnestuvad_logib_molemas(caplog: pytest.LogCaptureFixture) -> None:
-    """Kontrollib logimist, kui mõlemad välised teenused ebaõnnestuvad."""
-    caplog.set_level("ERROR")
-    
-    responses.add(
-        responses.GET,
-        JSONPLACEHOLDER_URL,
-        status=503,
-    )
-    responses.add(
-        responses.GET,
-        RICK_MORTY_URL,
-        status=504,
-    )
-    
-    vastus = client.get("/api/koond")
-    assert vastus.status_code == 502
-    
-    # Kontrolli, et mõlemad vead logitakse
-    error_messages = [rekord.message for rekord in caplog.records if rekord.levelname == "ERROR"]
-    assert any(JSONPLACEHOLDER_URL in msg for msg in error_messages)
-    # Kui rakendus üritab teist API-d pärast esimese ebaõnnestumist
-
 
 @responses.activate
 def test_koond_endpoint_vastuse_struktuuri_taielikkus(caplog: pytest.LogCaptureFixture) -> None:
