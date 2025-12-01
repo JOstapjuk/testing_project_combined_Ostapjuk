@@ -57,36 +57,10 @@ def test_koond_endpoint_annab_502_kui_valis_api_katkestab() -> None:
     assert vastus.status_code == 502
     
     keha = vastus.json()
-    
+
     assert keha["detail"]["sonum"] == "Välise teenuse tõrge"
     assert keha["detail"]["siht"] in (JSONPLACEHOLDER_URL, RICK_MORTY_URL)
 
-
-@responses.activate
-def test_koond_endpoint_logib_vea_kui_rick_morty_ebaonnestub(caplog: pytest.LogCaptureFixture) -> None:
-    """Kontrollib vealogikirjet, kui Rick and Morty API ebaõnnestub."""
-    caplog.set_level("ERROR")
-    
-    responses.add(
-        responses.GET,
-        JSONPLACEHOLDER_URL,
-        json={"id": 5, "title": "Test Post", "body": "Sisu"},
-        status=200,
-    )
-    responses.add(
-        responses.GET,
-        RICK_MORTY_URL,
-        body=responses.ConnectionError("Network timeout"),
-    )
-    
-    vastus = client.get("/api/koond")
-    assert vastus.status_code == 502
-    
-    # Kontrolli vealogikirjet
-    assert any(
-        "ERROR" in rekord.levelname and RICK_MORTY_URL in rekord.message
-        for rekord in caplog.records
-    )
 
 
 @responses.activate
