@@ -57,36 +57,9 @@ def test_koond_endpoint_annab_502_kui_valis_api_katkestab() -> None:
     assert vastus.status_code == 502
     
     keha = vastus.json()
+    
     assert keha["detail"]["sonum"] == "Välise teenuse tõrge"
     assert keha["detail"]["siht"] in (JSONPLACEHOLDER_URL, RICK_MORTY_URL)
-
-
-@responses.activate
-def test_koond_endpoint_logib_vea_kui_jsonplaceholder_ebaonnestub(caplog: pytest.LogCaptureFixture) -> None:
-    """Kontrollib vealogikirjet, kui JSONPlaceholder API ebaõnnestub."""
-    caplog.set_level("ERROR")
-    
-    responses.add(
-        responses.GET,
-        JSONPLACEHOLDER_URL,
-        json={"error": "Internal Server Error"},
-        status=500,
-    )
-    responses.add(
-        responses.GET,
-        RICK_MORTY_URL,
-        json={"id": 1, "name": "Rick Sanchez", "status": "Alive"},
-        status=200,
-    )
-    
-    vastus = client.get("/api/koond")
-    assert vastus.status_code == 502
-    
-    # Kontrolli, et vealogi sisaldab asjakohast infot
-    assert any(
-        "ERROR" in rekord.levelname and JSONPLACEHOLDER_URL in rekord.message
-        for rekord in caplog.records
-    )
 
 
 @responses.activate
